@@ -16,6 +16,8 @@ public class GameGui extends JFrame implements ActionListener
         new GameGui();
     }
 
+    //linea random sin ningun valor en particular
+    
     public GameGui() throws IOException//JFrame
     {
         
