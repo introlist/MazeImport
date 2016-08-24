@@ -1,5 +1,6 @@
 package mazeimport;
 
+import View.Alerts.Alert;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -27,7 +28,7 @@ public class GameGui extends JFrame implements ActionListener
                                         }
                         );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+        initComp();
         pack();
         this.setSize(612, 380);
         setResizable(false);
@@ -220,7 +221,7 @@ public class GameGui extends JFrame implements ActionListener
     }
  
     Action updateCursorAction = new AbstractAction() {
-    public void actionPerformed(ActionEvent e)throws SlowAssPlayer //this inner class generates an exeption if the player takes to long to finish a level 
+    public void actionPerformed(ActionEvent e)throws Alert //this inner class generates an exeption if the player takes to long to finish a level 
     {
         ix-=1;
         jx+=1;
@@ -241,14 +242,14 @@ public class GameGui extends JFrame implements ActionListener
         timely.stop();
         catFileName-=01;
     if(catFileName<01)
-        throw new SlowAssPlayer("Slow ass took to long.");
+        throw new Alert("Slow ass took to long.",hs,playerName,tk,levelNum);
     else
         loadMatrixGui("newLoad");
     }//end first if
         progressBar.setValue(jx);
         progressBar.setString(timeLeft+":"+ix);
     }//end actionPerformed
-};//end class
+    };//end class
 
 private void initComp(){
     
@@ -304,7 +305,7 @@ private void initComp(){
 }
     
     
-public static HighScore hs;  
+private HighScore hs;  
 private int catFileName=01;
 private Container cp;
 private FileLoader fl = new FileLoader();
@@ -331,9 +332,9 @@ private JPanel newPanel;// = new JPanel();
 private TheArchitect theArc = new TheArchitect();
 private String[][] scrapMatrix; 
 private  Timer timely; 
-public static  TimeKeeper tk;
-public static  String playerName;
-public static int  levelNum=1;
+private  TimeKeeper tk;
+private  String playerName;
+private int  levelNum=1;
 private int Dialabels = 0;
 private Map<String, JPanel> diamondsnum;
 }//end class    
