@@ -36,6 +36,9 @@ public class GameGui extends JFrame implements ActionListener
         setVisible (true);//show our menu bar and shagLabel.. Yea baby Yea! Whoa.. to much java.
     }//end constructor
      
+    private static JLabel mainLabel = new JLabel("",JLabel.CENTER);
+    private static JPanel diamondsPanel = new JPanel();
+    
     private class MyKeyHandler extends KeyAdapter //captures arrow keys movement
     {
         public void keyPressed (KeyEvent theEvent)
@@ -83,25 +86,24 @@ public class GameGui extends JFrame implements ActionListener
                 break;   
              }
            }//end switch
-           JLabel mainLabel=new JLabel("Total Dimonds Left to Collect"+theArc.getDimondsLeft()+"", JLabel.CENTER);//show how many dimonds are left to collect on the gui!
-           JPanel dimondsPanelTemp = new JPanel();
-           dimondsPanelTemp.add(mainLabel);
-           JPanel dimondsPanel = dimondsPanelTemp;
+           mainLabel.setText("Total Dimonds Left to Collect"+theArc.getDimondsLeft()+"");//show how many dimonds are left to collect on the gui!
+           diamondsPanel.add(mainLabel);
            Dialabels++;
-           cp.add(dimondsPanel,BorderLayout.SOUTH);
-           diamondsnum.put(Dialabels+"", dimondsPanel);
+           cp.add(diamondsPanel,BorderLayout.SOUTH);
+           diamondsnum.put(Dialabels+"", diamondsPanel);
            cp.invalidate();
            System.out.println(Dialabels+"and"+""+Dialabels);
            if(Dialabels > 1 ){
-           removeDiaLabels(0+"");
+           //removeDiaLabels(Dialabels+"");
            }
             
        }//end method
 
-        private void removeDiaLabels(String num) {
+    private void removeDiaLabels(String num) {
     JPanel delete = diamondsnum.remove(num);
     cp.remove(delete);
-    cp.invalidate();        }
+    cp.revalidate();
+    }
    }//end inner class
     
     public void actionPerformed(ActionEvent e)
