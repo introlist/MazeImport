@@ -18,6 +18,7 @@ public class GameGui extends JFrame implements ActionListener
 
     //linea random sin ningun valor en particular
     // CSMB
+    // super packetaxo http://www.mistrpacksricolinos.com
     public GameGui() throws IOException//JFrame
     {
         
