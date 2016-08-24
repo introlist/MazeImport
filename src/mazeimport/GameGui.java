@@ -11,14 +11,8 @@ import javax.imageio.ImageIO;
 public class GameGui extends JFrame implements ActionListener
 {
 
-    public static void main(String[] args) throws IOException
-    {
-        new GameGui();
-    }
-
     //linea random sin ningun valor en particular
     // CSMB
-    // super packetaxo http://www.mistrpacksricolinos.com
     public GameGui() throws IOException//JFrame
     {
         
@@ -34,54 +28,6 @@ public class GameGui extends JFrame implements ActionListener
                         );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        cp=getContentPane();
-        shagLabel = new JLabel("",new ImageIcon("yeababyyea.jpg"),JLabel.LEFT);//GUI background for initial load
-        //cp.add(shagLabel);
-        //shagLabel.getAccessibleContext();
-        //Add Exit & New Game Menu Items
-        itemExit = new JMenuItem("Exit");
-        itemExit.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_X, KeyEvent.CTRL_MASK));//press CTRL+X to exit if you want
-        itemSaveScore = new JMenuItem("Save High Score");
-        itemSaveScore.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_S, KeyEvent.CTRL_MASK));//press CTRL+S to save high score if you want
-        itemHighScore=new JMenuItem("High Score");
-        itemHighScore.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_H, KeyEvent.CTRL_MASK));//press CTRL+H to view high score if you want
-        itemEnterName = new JMenuItem("Enter Player Name");
-        itemEnterName.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_N, KeyEvent.CTRL_MASK));//press CTRL+N to enter your name if you want
-        newGameItem = new JButton("New Game");
-        this.add(newGameItem);        
-        openFileItem = new JButton("Select Maze level.");
-        this.add(openFileItem);      
-        //openFileItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_O, KeyEvent.CTRL_MASK));//press CTRL+O to open a level if you want
-        newGameItem.setActionCommand("New Game");
-        newGameItem.addActionListener(this);
-        itemEnterName.setActionCommand("EnterName");
-        itemEnterName.addActionListener(this);
-        itemSaveScore.setActionCommand("SaveScore");
-        itemSaveScore.addActionListener(this);
-        itemHighScore.setActionCommand("HighScore");
-        itemHighScore.addActionListener(this);
-        itemExit.setActionCommand("Exit");
-        itemExit.addActionListener(this);
-        openFileItem.setActionCommand("Open");
-        openFileItem.addActionListener(this);
-        newMenu = new JMenu("File");
-        
-        newGameItem.setVisible(true);
-        newMenu.add(itemEnterName);
-        openFileItem.setVisible(true);
-        newMenu.add(itemHighScore);
-        newMenu.add(itemSaveScore);
-        newMenu.add(itemExit);
-        
-        //Add Exit Menu 
-        //Add Menu Bar
-        menuBar = new JMenuBar();
-        menuBar.add(newMenu);
-        setJMenuBar(menuBar);
-        //Add Menu Bar     
-        newPanel = new JPanel();
-        hs = new HighScore();
-        tk=new TimeKeeper();
         pack();
         this.setSize(612, 380);
         setResizable(false);
@@ -304,19 +250,61 @@ public class GameGui extends JFrame implements ActionListener
     }//end actionPerformed
 };//end class
 
-    private class SlowAssPlayer extends RuntimeException
-    {
-        public SlowAssPlayer(String event)
-        {
-            //the game is over, here we must tell our high score method to recond the details.
-            hs.addHighScore(playerName,tk.getMinutes(),tk.getSeconds(),levelNum);
-            JFrame frame = new JFrame("Warning");
-            JOptionPane.showMessageDialog(frame, "You Stupid Ass, Did you eat to much for dinner?  Move Faster!");//the entire game has ended.
-            System.exit(1);
-        }
-    }//end class
+private void initComp(){
     
-private HighScore hs;  
+    cp=getContentPane();
+        shagLabel = new JLabel("",new ImageIcon("yeababyyea.jpg"),JLabel.LEFT);//GUI background for initial load
+        //cp.add(shagLabel);
+        //shagLabel.getAccessibleContext();
+        //Add Exit & New Game Menu Items
+        itemExit = new JMenuItem("Exit");
+        itemExit.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_X, KeyEvent.CTRL_MASK));//press CTRL+X to exit if you want
+        itemSaveScore = new JMenuItem("Save High Score");
+        itemSaveScore.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_S, KeyEvent.CTRL_MASK));//press CTRL+S to save high score if you want
+        itemHighScore=new JMenuItem("High Score");
+        itemHighScore.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_H, KeyEvent.CTRL_MASK));//press CTRL+H to view high score if you want
+        itemEnterName = new JMenuItem("Enter Player Name");
+        itemEnterName.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_N, KeyEvent.CTRL_MASK));//press CTRL+N to enter your name if you want
+        newGameItem = new JButton("New Game");
+        this.add(newGameItem);        
+        openFileItem = new JButton("Select Maze level.");
+        this.add(openFileItem);      
+        //openFileItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_O, KeyEvent.CTRL_MASK));//press CTRL+O to open a level if you want
+        newGameItem.setActionCommand("New Game");
+        newGameItem.addActionListener(this);
+        itemEnterName.setActionCommand("EnterName");
+        itemEnterName.addActionListener(this);
+        itemSaveScore.setActionCommand("SaveScore");
+        itemSaveScore.addActionListener(this);
+        itemHighScore.setActionCommand("HighScore");
+        itemHighScore.addActionListener(this);
+        itemExit.setActionCommand("Exit");
+        itemExit.addActionListener(this);
+        openFileItem.setActionCommand("Open");
+        openFileItem.addActionListener(this);
+        newMenu = new JMenu("File");
+        
+        newGameItem.setVisible(true);
+        newMenu.add(itemEnterName);
+        openFileItem.setVisible(true);
+        newMenu.add(itemHighScore);
+        newMenu.add(itemSaveScore);
+        newMenu.add(itemExit);
+        
+        //Add Exit Menu 
+        //Add Menu Bar
+        menuBar = new JMenuBar();
+        menuBar.add(newMenu);
+        setJMenuBar(menuBar);
+        //Add Menu Bar     
+        newPanel = new JPanel();
+        hs = new HighScore();
+        tk=new TimeKeeper();
+    
+}
+    
+    
+public static HighScore hs;  
 private int catFileName=01;
 private Container cp;
 private FileLoader fl = new FileLoader();
@@ -343,9 +331,9 @@ private JPanel newPanel;// = new JPanel();
 private TheArchitect theArc = new TheArchitect();
 private String[][] scrapMatrix; 
 private  Timer timely; 
-private TimeKeeper tk;
-private  String playerName;
-private int levelNum=1;
+public static  TimeKeeper tk;
+public static  String playerName;
+public static int  levelNum=1;
 private int Dialabels = 0;
 private Map<String, JPanel> diamondsnum;
 }//end class    
