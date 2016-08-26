@@ -25,7 +25,7 @@ public class GameGui extends JFrame implements ActionListener
                                 super.paintComponent(g);
                                 g.drawImage(image, 0, 0, 612, 380, this);
                             }
-                                        }
+                                        } //load background
                         );
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComp();
@@ -88,22 +88,20 @@ public class GameGui extends JFrame implements ActionListener
            }//end switch
            mainLabel.setText("Total Dimonds Left to Collect"+theArc.getDimondsLeft()+"");//show how many dimonds are left to collect on the gui!
            diamondsPanel.add(mainLabel);
-           Dialabels++;
-           cp.add(diamondsPanel,BorderLayout.SOUTH);
-           diamondsnum.put(Dialabels+"", diamondsPanel);
+           //Dialabels++; todo lo comentado aqui yo lo puse para intentar arreglarlo
+         //  cp.remove(diamondsPanel);
+           cp.add(diamondsPanel,BorderLayout.BEFORE_FIRST_LINE);
+           //cp.repaint();
+           //diamondsnum.put(Dialabels+"", diamondsPanel);
            cp.invalidate();
            System.out.println(Dialabels+"and"+""+Dialabels);
-           if(Dialabels > 1 ){
+           //if(Dialabels > 1 ){
            //removeDiaLabels(Dialabels+"");
-           }
+           //}
             
        }//end method
 
-    private void removeDiaLabels(String num) {
-    JPanel delete = diamondsnum.remove(num);
-    cp.remove(delete);
-    cp.revalidate();
-    }
+    
    }//end inner class
     
     public void actionPerformed(ActionEvent e)
@@ -187,7 +185,7 @@ public class GameGui extends JFrame implements ActionListener
               for (int j = 0; j < labelMatrix[i].length; j++){
                   labelMatrix[i][j]=  mo=new mazeObject(scrapMatrix[i][j]);//add our maze images into the gui
               }}//end double for loop
-         cp.add(newPanel);
+         cp.add(newPanel,BorderLayout.AFTER_LAST_LINE);
          remove(shagLabel);//remove the constructors initial background
          System.gc();//force java to clean up memory use.
          pack();
