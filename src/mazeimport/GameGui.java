@@ -39,6 +39,7 @@ public class GameGui extends JFrame implements ActionListener
     private static JLabel mainLabel = new JLabel("",JLabel.CENTER);
     private static JPanel diamondsPanel = new JPanel();
     
+    
     private class MyKeyHandler extends KeyAdapter //captures arrow keys movement
     {
         public void keyPressed (KeyEvent theEvent)
@@ -90,8 +91,8 @@ public class GameGui extends JFrame implements ActionListener
            diamondsPanel.add(mainLabel);
            //Dialabels++; todo lo comentado aqui yo lo puse para intentar arreglarlo
          //  cp.remove(diamondsPanel);
-           cp.add(diamondsPanel,BorderLayout.BEFORE_FIRST_LINE);
-           //cp.repaint();
+          // cp.add(diamondsPanel,BorderLayout.BEFORE_FIRST_LINE);
+           cp.repaint();
            //diamondsnum.put(Dialabels+"", diamondsPanel);
            cp.invalidate();
            System.out.println(Dialabels+"and"+""+Dialabels);
@@ -113,7 +114,9 @@ public class GameGui extends JFrame implements ActionListener
         }
         else if (e.getActionCommand().equals("New Game"))//new game on the menu bar
         {
-             return; //maybe implent this feature later
+                fl.loadFile("level1.maz");
+                theArc.setExit(fl.ExitXCord(),fl.ExitYCord());
+                loadMatrixGui("newLoad");   
         }//end New Game Command
         else if(e.getActionCommand().equals("EnterName"))//Allows user to enter their name for high score
         {
@@ -135,6 +138,7 @@ public class GameGui extends JFrame implements ActionListener
             int returnVal = chooser.showOpenDialog(this);
             if(returnVal == JFileChooser.APPROVE_OPTION) 
             {
+               // System.out.println(chooser.getSelectedFile().getName());
                 fl.loadFile(chooser.getSelectedFile().getName());//load the file we need
                 theArc.setExit(fl.ExitXCord(),fl.ExitYCord());
                 loadMatrixGui("newLoad"); 
@@ -185,8 +189,15 @@ public class GameGui extends JFrame implements ActionListener
               for (int j = 0; j < labelMatrix[i].length; j++){
                   labelMatrix[i][j]=  mo=new mazeObject(scrapMatrix[i][j]);//add our maze images into the gui
               }}//end double for loop
-         cp.add(newPanel,BorderLayout.AFTER_LAST_LINE);
-         remove(shagLabel);//remove the constructors initial background
+         //LAYOUT OPTION 1
+//         cp.add(newPanel,BorderLayout.EAST);
+//         cp.add(diamondsPanel,BorderLayout.CENTER);
+           
+         //LAYOUT OPTION 2
+         cp.setLayout(new BoxLayout(cp, BoxLayout.Y_AXIS));
+          cp.add(newPanel);
+          cp.add(diamondsPanel);
+         //remove(shagLabel);//remove the constructors initial background
          System.gc();//force java to clean up memory use.
          pack();
          setVisible (true);
@@ -254,7 +265,7 @@ public class GameGui extends JFrame implements ActionListener
 private void initComp(){
     
     cp=getContentPane();
-        shagLabel = new JLabel("",new ImageIcon("yeababyyea.jpg"),JLabel.LEFT);//GUI background for initial load
+        //shagLabel = new JLabel("",new ImageIcon("yeababyyea.jpg"),JLabel.LEFT);//GUI background for initial load
         //cp.add(shagLabel);
         //shagLabel.getAccessibleContext();
         //Add Exit & New Game Menu Items
@@ -319,7 +330,7 @@ private JMenuItem itemEnterName;
 private JMenuItem itemHighScore;
 private JMenuItem itemSaveScore;
 //end create menu items
-private JLabel shagLabel;
+//private JLabel shagLabel;
 private int ix;
 private int jx;
 private int timeLeft;
